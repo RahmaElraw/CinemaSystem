@@ -1,0 +1,57 @@
+﻿@model List<Category>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>🎬 Movies</h2>
+        <a asp-action="Create" class="btn btn-primary">+ Add Movie</a>
+    </div>
+
+    @foreach (var category in Model)
+    {
+        if (category.Movies != null && category.Movies.Any())
+        {
+            <div class="mb-5">
+                <h4 class="text-primary border-bottom pb-2">📁 @category.Name</h4>
+                <div class="row">
+                    @foreach (var movie in category.Movies)
+                    {
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                @if (movie.MainImg != null)
+                                {
+                                    <img src="~/images/movies/@movie.MainImg"
+                                         class="card-img-top"
+                                         style="height:200px;object-fit:cover" />
+                                }
+                                else
+                                {
+                                    <div style="height:200px;background:#eee;
+                                         display:flex;align-items:center;
+                                         justify-content:center">
+                                        <span class="text-muted">No Image</span>
+                                    </div>
+                                }
+                                <div class="card-body">
+                                    <h5 class="card-title">@movie.Name</h5>
+                                    <p class="text-muted mb-1">@movie.Price EGP</p>
+                                    <span class="badge @(movie.Status == "Now Showing" ? "bg-success" : "bg-warning") mb-2">
+                                        @movie.Status
+                                    </span>
+                                </div>
+                                <div class="card-footer d-flex gap-1">
+                                    <a asp-action="Details" asp-route-id="@movie.Id"
+                                       class="btn btn-info btn-sm flex-fill">Details</a>
+                                    <a asp-action="Edit" asp-route-id="@movie.Id"
+                                       class="btn btn-warning btn-sm flex-fill">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@movie.Id"
+                                       class="btn btn-danger btn-sm flex-fill"
+                                       onclick="return confirm('Delete @movie.Name ?')">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>

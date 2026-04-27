@@ -1,0 +1,11 @@
+﻿@model Cinema
+
+<div class="container mt-4">
+    <h2>Delete Cinema</h2>
+    <p>Are you sure you want to delete: <strong>@Model.Name</strong> ?</p>
+    <form asp-action="Delete" method="post">
+        <input asp-for="Id" type="hidden" />
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

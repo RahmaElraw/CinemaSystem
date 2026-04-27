@@ -1,0 +1,73 @@
+﻿@model Movie
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            @if (Model.MainImg != null)
+            {
+                <img src="~/images/movies/@Model.MainImg"
+                     class="img-fluid rounded shadow w-100"
+                     style="max-height:350px;object-fit:cover" />
+            }
+
+            @if (Model.MovieSubImages != null && Model.MovieSubImages.Any())
+            {
+                <div class="row mt-3">
+                    @foreach (var img in Model.MovieSubImages)
+                    {
+                        <div class="col-4 mb-2">
+                            <img src="~/images/movies/sub/@img.ImageUrl"
+                                 class="img-fluid rounded"
+                                 style="height:80px;object-fit:cover;width:100%" />
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="col-md-8">
+            <h2>@Model.Name</h2>
+            <p class="text-muted">@Model.Description</p>
+
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item"><strong>Category:</strong> @Model.Category?.Name</li>
+                <li class="list-group-item"><strong>Cinema:</strong> @Model.Cinema?.Name</li>
+                <li class="list-group-item"><strong>Price:</strong> @Model.Price EGP</li>
+                <li class="list-group-item">
+                    <strong>Status:</strong>
+                    <span class="badge @(Model.Status == "Now Showing" ? "bg-success" : "bg-warning")">
+                        @Model.Status
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    <strong>Date:</strong> @Model.DateTime.ToString("dd MMM yyyy")
+                </li>
+            </ul>
+
+            @if (Model.MovieActors != null && Model.MovieActors.Any())
+            {
+                <h4>🎭 Actors</h4>
+                <div class="row">
+                    @foreach (var ma in Model.MovieActors)
+                    {
+                        <div class="col-md-3 text-center mb-3">
+                            @if (ma.Actor?.Image != null)
+                            {
+                                <img src="~/images/actors/@ma.Actor.Image" width="80" height="80"
+                                     style="object-fit:cover;border-radius:50%" />
+                            }
+                            else
+                            {
+                                <div style="width:80px;height:80px;border-radius:50%;
+                                     background:#ccc;margin:auto"></div>
+                            }
+                            <p class="mt-2 mb-0">@ma.Actor?.Name</p>
+                        </div>
+                    }
+                </div>
+            }
+
+            <a asp-action="Index" class="btn btn-secondary mt-3">← Back</a>
+        </div>
+    </div>
+</div>

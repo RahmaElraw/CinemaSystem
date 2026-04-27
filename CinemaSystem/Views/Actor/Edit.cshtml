@@ -1,0 +1,27 @@
+﻿@model Actor
+
+<div class="container mt-4">
+    <h2>Edit Actor</h2>
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="Image" type="hidden" />
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label>Current Image</label><br />
+            @if (Model.Image != null)
+            {
+                <img src="~/images/actors/@Model.Image" width="80" height="80" style="object-fit:cover;border-radius:50%" />
+            }
+        </div>
+        <div class="mb-3">
+            <label>Change Image</label>
+            <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+        </div>
+        <button type="submit" class="btn btn-warning">Update</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
