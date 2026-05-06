@@ -1,4 +1,5 @@
 ﻿
+using CinemaSystem.Validations;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 namespace CinemaSystem.ViewModels
@@ -21,7 +22,8 @@ namespace CinemaSystem.ViewModels
         [MaxLength(50)]
         public string Status { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Date is required")]
+        [FutureDate(ErrorMessage = "Date must be in the future")]
         public DateTime DateTime { get; set; }
 
         public string? ExistingMainImg { get; set; }

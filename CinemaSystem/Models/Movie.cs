@@ -1,4 +1,6 @@
-﻿namespace CinemaSystem.Models
+﻿using CinemaSystem.Validations;
+
+namespace CinemaSystem.Models
 {
     public class Movie
     {
@@ -15,6 +17,7 @@
         [MaxLength(50)]
         public string Status { get; set; }
         [Required(ErrorMessage = "Date is required")]
+        [FutureDate(ErrorMessage = "Date must be in the future")]
         public DateTime DateTime { get; set; }
         public string? MainImg { get; set; }
 

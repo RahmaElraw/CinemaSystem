@@ -1,5 +1,5 @@
 ﻿
-using CinemaSystem.ViewModels;
+@using CinemaSystem.ViewModels;
 @model EditMovieVM
 
 <div class="container mt-4">
@@ -36,6 +36,7 @@ using CinemaSystem.ViewModels;
             <div class="col-md-6 mb-3">
                 <label asp-for="DateTime" class="form-label"></label>
                 <input asp-for="DateTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="DateTime" class="text-danger"></span>  
             </div>
         </div>
 
@@ -137,3 +138,8 @@ using CinemaSystem.ViewModels;
         }
     }
 </script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
