@@ -7,10 +7,11 @@ namespace CinemaSystem.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController()
         {
-            _context = context;
+            _context = new();
         }
+
         public IActionResult Index()
         {
             var categories = _context.Categories.ToList();
@@ -29,6 +30,7 @@ namespace CinemaSystem.Controllers
             {
                 _context.Categories.Add(category);
                 _context.SaveChanges();
+                TempData["success_notification"] = "Category Added Successfully";
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -41,7 +43,6 @@ namespace CinemaSystem.Controllers
             return View(category);
         }
 
-
         [HttpPost]
         public IActionResult Edit(Category category)
         {
@@ -49,11 +50,11 @@ namespace CinemaSystem.Controllers
             {
                 _context.Categories.Update(category);
                 _context.SaveChanges();
+                TempData["success_notification"] = "Category Updated Successfully";
                 return RedirectToAction("Index");
             }
             return View(category);
         }
-
 
         public IActionResult Delete(int id)
         {
@@ -62,16 +63,14 @@ namespace CinemaSystem.Controllers
             return View(category);
         }
 
-
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
             var category = _context.Categories.Find(id);
             _context.Categories.Remove(category);
             _context.SaveChanges();
+            TempData["success_notification"] = "Category Deleted Successfully";
             return RedirectToAction("Index");
         }
-
-
     }
 }

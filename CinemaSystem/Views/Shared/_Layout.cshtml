@@ -234,6 +234,29 @@
     @RenderSection("Scripts", false)
 </body>
 
+
+<!-- Notification -->
+@if (TempData["success_notification"] != null)
+{
+    <div id="notification" class="alert alert-success alert-dismissible fade show m-3"
+         role="alert" style="position:fixed;top:20px;right:20px;z-index:9999;min-width:300px">
+        <strong>✅</strong> @TempData["success_notification"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            var el = document.getElementById('notification');
+            if (el) {
+                el.classList.remove('show');
+                el.classList.add('fade');
+                setTimeout(() => el.remove(), 500);
+            }
+        }, 3000);
+    </script>
+}
+
+
 </html>
 
 

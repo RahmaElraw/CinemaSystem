@@ -7,9 +7,9 @@ namespace CinemaSystem.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public CinemaController(ApplicationDbContext context)
+        public CinemaController()
         {
-            _context = context;
+            _context = new();
         }
 
         public IActionResult Index()
@@ -30,6 +30,7 @@ namespace CinemaSystem.Controllers
             {
                 _context.Cinemas.Add(cinema);
                 _context.SaveChanges();
+                TempData["success_notification"] = "Cinema Added Successfully";
                 return RedirectToAction("Index");
             }
             return View(cinema);
@@ -49,6 +50,7 @@ namespace CinemaSystem.Controllers
             {
                 _context.Cinemas.Update(cinema);
                 _context.SaveChanges();
+                TempData["success_notification"] = "Cinema Updated Successfully";
                 return RedirectToAction("Index");
             }
             return View(cinema);
@@ -67,6 +69,7 @@ namespace CinemaSystem.Controllers
             var cinema = _context.Cinemas.Find(id);
             _context.Cinemas.Remove(cinema);
             _context.SaveChanges();
+            TempData["success_notification"] = "Cinema Deleted Successfully";
             return RedirectToAction("Index");
         }
     }

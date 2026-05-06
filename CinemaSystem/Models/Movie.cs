@@ -3,17 +3,18 @@
     public class Movie
     {
         public int Id { get; set; }
-        [Required]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "Name is required")]
+        [MaxLength(200, ErrorMessage = "Max 200 characters")]
         public string Name { get; set; }
-        [MaxLength(500)]
+        [MaxLength(1000, ErrorMessage = "Max 1000 characters")]
         public string Description { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Price is required")]
+        [Range(0, 10000, ErrorMessage = "Price must be between 0 and 10000")]
         public double Price { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Status is required")]
         [MaxLength(50)]
         public string Status { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Date is required")]
         public DateTime DateTime { get; set; }
         public string? MainImg { get; set; }
 
